@@ -8,9 +8,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <style>
-        html {
-            scroll-behavior: smooth; /* 點擊按鈕後平滑滾動至表單區塊 */
-        }
         body {
             background-color: #eef4fa;
             font-family: "Microsoft JhengHei", "PingFang TC", sans-serif;
@@ -35,7 +32,7 @@
             border-radius: 12px;
             display: block;
         }
-        /* 按鈕視覺樣式（搭配海報主色調） */
+        /* 按鈕樣式 */
         .btn-enter-survey {
             background: linear-gradient(135deg, #e65100 0%, #ff7043 100%);
             color: #ffffff;
@@ -46,8 +43,9 @@
             border: none;
             box-shadow: 0 4px 16px rgba(230, 81, 0, 0.35);
             transition: all 0.3s ease;
-            text-decoration: none;
+            cursor: pointer;
             display: inline-block;
+            text-decoration: none;
         }
         .btn-enter-survey:hover {
             background: linear-gradient(135deg, #bf360c 0%, #e65100 100%);
@@ -55,14 +53,28 @@
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(230, 81, 0, 0.45);
         }
-        /* 嵌入表單外框 */
+        .btn-back {
+            background-color: #6c757d;
+            color: #ffffff;
+            border-radius: 30px;
+            padding: 8px 20px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            display: inline-block;
+            border: none;
+            transition: all 0.2s ease;
+        }
+        .btn-back:hover {
+            background-color: #5a6268;
+            color: #ffffff;
+        }
+        /* 表單區塊 */
         .form-card {
             background: #ffffff;
             border-radius: 16px;
             box-shadow: 0 8px 24px rgba(11, 58, 117, 0.12);
             padding: 24px 16px;
-            margin-top: 30px;
-            margin-bottom: 50px;
+            margin-bottom: 30px;
             border: 1px solid #d0e1f9;
         }
         .form-card iframe {
@@ -82,36 +94,54 @@
 
     <div class="container main-container">
         
-        <!-- 1. 封面海報卡片區塊 -->
-        <div class="poster-card text-center">
-            <!-- 讀取同層級資料夾中的 poster.jpg -->
+        <!-- 【第一畫面】：海報與進入按鈕 -->
+        <div id="poster-view" class="poster-card text-center">
+            <!-- 注意：若 GitHub 上的圖檔名為 poster.jpg.jpg，請同步改為 poster.jpg.jpg -->
             <img src="poster.jpg" alt="116學年度學科能力測驗 主(監)試人員意願調查" class="poster-img mb-3">
             
-            <!-- 2. 下方行動引導按鈕 (CTA) -->
             <div class="py-3">
-                <a href="#survey-form" class="btn-enter-survey">
+                <button type="button" class="btn-enter-survey" onclick="showSurvey()">
                     <i class="bi bi-pencil-square me-2"></i>進入填寫意願調查
-                </a>
+                </button>
             </div>
         </div>
 
-        <!-- 3. 嵌入 Google 表單區塊 -->
-        <div id="survey-form" class="form-card">
-            <h4 class="fw-bold text-center mb-4" style="color: #0b3a75;">
-                <i class="bi bi-file-earmark-check-fill me-2" style="color: #e65100;"></i>線上意願調查表單
-            </h4>
-            <!-- 已帶入您提供的嵌入 HTML 碼 -->
-            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc3KbZgQU4NIJ5tBRvzY10MU09wjqm3P5wpPfcVB3Ag2ko1yQ/viewform?embedded=true" width="640" height="3061" frameborder="0" marginheight="0" marginwidth="0">載入中…</iframe>
+        <!-- 【第二畫面】：填寫問卷（預設隱藏） -->
+        <div id="survey-view" style="display: none;">
+            <div class="mb-3 text-start">
+                <button type="button" class="btn-back" onclick="showPoster()">
+                    <i class="bi bi-arrow-left me-1"></i>返回海報說明
+                </button>
+            </div>
+
+            <div class="form-card">
+                <h4 class="fw-bold text-center mb-4" style="color: #0b3a75;">
+                    <i class="bi bi-file-earmark-check-fill me-2" style="color: #e65100;"></i>線上意願調查表單
+                </h4>
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc3KbZgQU4NIJ5tBRvzY10MU09wjqm3P5wpPfcVB3Ag2ko1yQ/viewform?embedded=true" width="640" height="3061" frameborder="0" marginheight="0" marginwidth="0">載入中…</iframe>
+            </div>
         </div>
 
-        <!-- 4. 頁尾資訊 -->
-        <footer>
+        <footer class="mt-4">
             &copy; 2026 試務中心 版權所有 | 校內分機：31131 趙于欣
         </footer>
 
     </div>
 
-    <!-- 導入 Bootstrap JS -->
+    <!-- 切換畫面的 JavaScript 腳本 -->
+    <script>
+        function showSurvey() {
+            document.getElementById('poster-view').style.display = 'none';
+            document.getElementById('survey-view').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showPoster() {
+            document.getElementById('survey-view').style.display = 'none';
+            document.getElementById('poster-view').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
