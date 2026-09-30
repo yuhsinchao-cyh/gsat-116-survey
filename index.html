@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>116學年度學科能力測驗 主(監)試人員意願調查</title>
+    <!-- 引入 Bootstrap 5 CSS 與 Icon 圖示 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <style>
+        html {
+            scroll-behavior: smooth; /* 點擊按鈕後平滑滾動至表單區塊 */
+        }
+        body {
+            background-color: #eef4fa;
+            font-family: "Microsoft JhengHei", "PingFang TC", sans-serif;
+            color: #1a2b4c;
+        }
+        .main-container {
+            max-width: 920px;
+            margin: 20px auto;
+        }
+        /* 海報卡片外框 */
+        .poster-card {
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(11, 58, 117, 0.12);
+            overflow: hidden;
+            padding: 16px;
+            border: 1px solid #d0e1f9;
+        }
+        .poster-img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            display: block;
+        }
+        /* 按鈕視覺樣式（搭配海報主色調） */
+        .btn-enter-survey {
+            background: linear-gradient(135deg, #e65100 0%, #ff7043 100%);
+            color: #ffffff;
+            font-size: 1.25rem;
+            font-weight: bold;
+            padding: 14px 42px;
+            border-radius: 50px;
+            border: none;
+            box-shadow: 0 4px 16px rgba(230, 81, 0, 0.35);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-enter-survey:hover {
+            background: linear-gradient(135deg, #bf360c 0%, #e65100 100%);
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(230, 81, 0, 0.45);
+        }
+        /* 嵌入表單外框 */
+        .form-card {
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(11, 58, 117, 0.12);
+            padding: 24px 16px;
+            margin-top: 30px;
+            margin-bottom: 50px;
+            border: 1px solid #d0e1f9;
+        }
+        .form-card iframe {
+            width: 100%;
+            border: none;
+            border-radius: 8px;
+        }
+        footer {
+            text-align: center;
+            color: #5c6b73;
+            font-size: 0.9rem;
+            padding-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container main-container">
+        
+        <!-- 1. 封面海報卡片區塊 -->
+        <div class="poster-card text-center">
+            <!-- 讀取同層級資料夾中的 poster.jpg -->
+            <img src="poster.jpg" alt="116學年度學科能力測驗 主(監)試人員意願調查" class="poster-img mb-3">
+            
+            <!-- 2. 下方行動引導按鈕 (CTA) -->
+            <div class="py-3">
+                <a href="#survey-form" class="btn-enter-survey">
+                    <i class="bi bi-pencil-square me-2"></i>進入填寫意願調查
+                </a>
+            </div>
+        </div>
+
+        <!-- 3. 嵌入 Google 表單區塊 -->
+        <div id="survey-form" class="form-card">
+            <h4 class="fw-bold text-center mb-4" style="color: #0b3a75;">
+                <i class="bi bi-file-earmark-check-fill me-2" style="color: #e65100;"></i>線上意願調查表單
+            </h4>
+            <!-- 已帶入您提供的嵌入 HTML 碼 -->
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc3KbZgQU4NIJ5tBRvzY10MU09wjqm3P5wpPfcVB3Ag2ko1yQ/viewform?embedded=true" width="640" height="3061" frameborder="0" marginheight="0" marginwidth="0">載入中…</iframe>
+        </div>
+
+        <!-- 4. 頁尾資訊 -->
+        <footer>
+            &copy; 2026 試務中心 版權所有 | 校內分機：31131 趙于欣
+        </footer>
+
+    </div>
+
+    <!-- 導入 Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
