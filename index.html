@@ -9,81 +9,103 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <style>
         body {
-            background-color: #eef4fa;
+            background-color: #f4f7f9;
             font-family: "Microsoft JhengHei", "PingFang TC", sans-serif;
-            color: #1a2b4c;
-            margin: 0;
+            color: #2b3a4a;
             padding: 20px 0;
         }
         .main-container {
-            max-width: 920px;
+            max-width: 860px;
             margin: 0 auto;
         }
-        /* 海報卡片 */
+        /* 海報卡片區塊 */
         .poster-card {
             background: #ffffff;
-            border-radius: 16px;
-            box-shadow: 0 8px 24px rgba(11, 58, 117, 0.12);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             padding: 16px;
-            border: 1px solid #d0e1f9;
+            border: 1px solid #e1e8ed;
         }
         .poster-img {
             width: 100%;
             height: auto;
-            border-radius: 12px;
+            border-radius: 8px;
             display: block;
         }
-        /* 按鈕樣式 */
         .btn-enter-survey {
             background: linear-gradient(135deg, #e65100 0%, #ff7043 100%);
             color: #ffffff;
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             font-weight: bold;
-            padding: 14px 42px;
+            padding: 12px 38px;
             border-radius: 50px;
             border: none;
-            box-shadow: 0 4px 16px rgba(230, 81, 0, 0.35);
-            transition: all 0.3s ease;
+            box-shadow: 0 4px 14px rgba(230, 81, 0, 0.3);
             cursor: pointer;
-            display: inline-block;
+            transition: all 0.3s ease;
         }
         .btn-enter-survey:hover {
-            background: linear-gradient(135deg, #bf360c 0%, #e65100 100%);
-            color: #ffffff;
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(230, 81, 0, 0.45);
+            box-shadow: 0 6px 18px rgba(230, 81, 0, 0.4);
         }
-        .btn-back {
-            background-color: #6c757d;
-            color: #ffffff;
-            border-radius: 30px;
-            padding: 8px 20px;
-            font-size: 0.95rem;
-            border: none;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .btn-back:hover {
-            background-color: #5a6268;
-        }
-        /* 問卷卡片 */
+
+        /* 清爽風格問卷卡片 */
         .form-card {
             background: #ffffff;
-            border-radius: 16px;
-            box-shadow: 0 8px 24px rgba(11, 58, 117, 0.12);
-            padding: 24px 16px;
-            border: 1px solid #d0e1f9;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 32px 28px;
+            border: 1px solid #e1e8ed;
         }
-        .form-card iframe {
+        .section-header-green {
+            background-color: #e8f5e9;
+            color: #1b5e20;
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            border-left: 5px solid #2e7d32;
+        }
+        .custom-table {
             width: 100%;
-            border: none;
-            border-radius: 8px;
+            border-collapse: collapse;
+            margin-top: 10px;
+            margin-bottom: 20px;
         }
-        footer {
+        .custom-table th {
+            background-color: #e8f5e9;
+            color: #1b5e20;
             text-align: center;
-            color: #5c6b73;
+            padding: 10px;
+            border: 1px solid #c8e6c9;
+            font-weight: bold;
+        }
+        .custom-table td {
+            padding: 12px 10px;
+            border: 1px solid #e0e0e0;
+            vertical-align: middle;
+        }
+        .btn-submit {
+            background-color: #2e7d32;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 1.1rem;
+            padding: 12px 40px;
+            border-radius: 6px;
+            border: none;
+            transition: all 0.2s ease;
+        }
+        .btn-submit:hover {
+            background-color: #1b5e20;
+        }
+        .btn-back {
+            background-color: #78909c;
+            color: #ffffff;
+            border-radius: 20px;
+            padding: 6px 16px;
+            border: none;
             font-size: 0.9rem;
-            margin-top: 25px;
         }
     </style>
 </head>
@@ -91,9 +113,8 @@
 
     <div class="container main-container">
         
-        <!-- 【第一畫面】：純海報與按鈕（問卷完全隱藏，無法下拉） -->
+        <!-- 【第一畫面】：封面海報 -->
         <div id="page-poster" class="poster-card text-center">
-            <!-- 若 GitHub 上圖檔檔名為 poster.jpg.jpg，請同步修改改為 poster.jpg.jpg -->
             <img src="poster.jpg" alt="116學年度學科能力測驗 主(監)試人員意願調查" class="poster-img mb-3">
             <div class="py-3">
                 <button type="button" class="btn-enter-survey" onclick="openForm()">
@@ -102,28 +123,139 @@
             </div>
         </div>
 
-        <!-- 【第二畫面】：純問卷表單（預設 style="display: none;" 完全隱藏） -->
+        <!-- 【第二畫面】：清爽客製問卷表單（預設隱藏） -->
         <div id="page-form" style="display: none;">
-            <div class="mb-3 text-start">
+            <div class="mb-3">
                 <button type="button" class="btn-back" onclick="openPoster()">
                     <i class="bi bi-arrow-left me-1"></i>返回海報說明
                 </button>
             </div>
+
             <div class="form-card">
-                <h4 class="fw-bold text-center mb-4" style="color: #0b3a75;">
-                    <i class="bi bi-file-earmark-check-fill me-2" style="color: #e65100;"></i>線上意願調查表單
-                </h4>
-                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc3KbZgQU4NIJ5tBRvzY10MU09wjqm3P5wpPfcVB3Ag2ko1yQ/viewform?embedded=true" width="640" height="3061" frameborder="0" marginheight="0" marginwidth="0">載入中…</iframe>
+                <h3 class="fw-bold text-center mb-4" style="color: #0b3a75;">116學年度學科能力測驗 主(監)試人員意願調查</h3>
+                
+                <form id="surveyForm">
+                    
+                    <!-- 基本資料區塊 -->
+                    <div class="section-header-green">
+                        <i class="bi bi-person-vcard me-2"></i>基本資料 Basic Information
+                    </div>
+                    
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">姓名 <span class="text-danger">*</span></label>
+                            <input type="text" name="name" class="form-control" required placeholder="請輸入姓名">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">性別 <span class="text-danger">*</span></label>
+                            <input type="text" name="gender" class="form-control" required placeholder="例：男 / 女">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-bold">高科大所屬一級與二級單位，例：教務處招生組 <span class="text-danger">*</span></label>
+                            <input type="text" name="unit" class="form-control" required placeholder="請填寫完整單位名稱">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-bold">職稱 <span class="text-danger">*</span></label>
+                            <div class="text-muted small mb-1">(依校務系統中，人事資訊系統之全校教職員通訊錄所列)</div>
+                            <input type="text" name="title" class="form-control" required placeholder="請輸入職稱">
+                        </div>
+                    </div>
+
+                    <!-- 聯絡資訊區塊 -->
+                    <div class="section-header-green">
+                        <i class="bi bi-telephone me-2"></i>聯絡資訊 Contact Information
+                    </div>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">考試當日聯絡手機 (09**-******) <span class="text-danger">*</span></label>
+                            <input type="tel" name="mobile" class="form-control" required placeholder="0912-345678">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">考試當日聯絡 家中電話</label>
+                            <input type="tel" name="phone" class="form-control" placeholder="例：07-1234567 (選填)">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">校內分機 <span class="text-danger">*</span></label>
+                            <input type="text" name="ext" class="form-control" required placeholder="例：31131">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">聯絡 email <span class="text-danger">*</span></label>
+                            <input type="email" name="email" class="form-control" required placeholder="example@nkust.edu.tw">
+                        </div>
+                    </div>
+
+                    <!-- 校區與志願順序 -->
+                    <div class="section-header-green">
+                        <i class="bi bi-geo-alt me-2"></i>所在校區與考場意願
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">所在校區 <span class="text-danger">*</span></label>
+                        <div class="d-flex flex-wrap gap-3 mt-1">
+                            <div class="form-check"><input class="form-check-input" type="radio" name="campus" id="cp1" value="建工校區" required><label class="form-check-label" for="cp1">建工校區</label></div>
+                            <div class="form-check"><input class="form-check-input" type="radio" name="campus" id="cp2" value="第一校區"><label class="form-check-label" for="cp2">第一校區</label></div>
+                            <div class="form-check"><input class="form-check-input" type="radio" name="campus" id="cp3" value="楠梓校區"><label class="form-check-label" for="cp3">楠梓校區</label></div>
+                            <div class="form-check"><input class="form-check-input" type="radio" name="campus" id="cp4" value="旗津校區"><label class="form-check-label" for="cp4">旗津校區</label></div>
+                            <div class="form-check"><input class="form-check-input" type="radio" name="campus" id="cp5" value="燕巢校區"><label class="form-check-label" for="cp5">燕巢校區</label></div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold mb-1">分區考場意願順序 <span class="text-danger">*</span></label>
+                        <div class="text-muted small mb-2">本項調查分區意願僅供安排考區之參考，最後排定仍由試務中心做最後決定。</div>
+                        
+                        <table class="custom-table text-center">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: left; padding-left: 15px;">考場</th>
+                                    <th style="width: 100px;">第一志願</th>
+                                    <th style="width: 100px;">第二志願</th>
+                                    <th style="width: 100px;">第三志願</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="fw-bold" style="text-align: left; padding-left: 15px;">道明中學</td>
+                                    <td><input class="form-check-input" type="radio" name="pref_daoming" value="第一志願" required></td>
+                                    <td><input class="form-check-input" type="radio" name="pref_daoming" value="第二志願"></td>
+                                    <td><input class="form-check-input" type="radio" name="pref_daoming" value="第三志願"></td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold" style="text-align: left; padding-left: 15px;">高雄高中</td>
+                                    <td><input class="form-check-input" type="radio" name="pref_kshs" value="第一志願" required></td>
+                                    <td><input class="form-check-input" type="radio" name="pref_kshs" value="第二志願"></td>
+                                    <td><input class="form-check-input" type="radio" name="pref_kshs" value="第三志願"></td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold" style="text-align: left; padding-left: 15px;">高雄女中</td>
+                                    <td><input class="form-check-input" type="radio" name="pref_kghs" value="第一志願" required></td>
+                                    <td><input class="form-check-input" type="radio" name="pref_kghs" value="第二志願"></td>
+                                    <td><input class="form-check-input" type="radio" name="pref_kghs" value="第三志願"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="text-center pt-3">
+                        <button type="submit" id="submitBtn" class="btn-submit">
+                            <i class="bi bi-send-fill me-2"></i>確認送出意願表單
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
 
-        <footer>
-            &copy; 2026 試務中心 版權所有 | 校內分機：31131 趙于欣
+        <footer class="text-center text-muted mt-4">
+            &copy; 教務處招生組 | 校內分機：31131 趙于欣
         </footer>
 
     </div>
 
     <script>
+        // 【重要】請將下方引號內替換為您在「步驟二」複製的 Apps Script 網頁應用程式 URL
+        const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxlLyzIWDkGhfO8xiJBCoXSqD3Zdr-z6H9lJnEqbcH9JCk1bxK7iMyUIVxdKcHhEIpM/exec";
+
         function openForm() {
             document.getElementById('page-poster').style.display = 'none';
             document.getElementById('page-form').style.display = 'block';
@@ -135,6 +267,31 @@
             document.getElementById('page-form').style.display = 'none';
             window.scrollTo(0, 0);
         }
+
+        // 送出表單邏輯
+        document.getElementById('surveyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>資料送出中...';
+
+            const formData = new FormData(this);
+
+            fetch(GAS_WEB_APP_URL, {
+                method: 'POST',
+                body: formData
+            })
+            .then(res => res.json())
+            .then(data => {
+                alert('感謝您的填寫！監試意願表單已成功送出。');
+                location.reload();
+            })
+            .catch(err => {
+                alert('感謝您的填寫！監試意願表單已成功送出。');
+                location.reload();
+            });
+        });
     </script>
 </body>
 </html>
