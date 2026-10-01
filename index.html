@@ -252,9 +252,9 @@
 
     </div>
 
-    <script>
-        // 【重要】請將下方引號內替換為您在「步驟二」複製的 Apps Script 網頁應用程式 URL
-        const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxlLyzIWDkGhfO8xiJBCoXSqD3Zdr-z6H9lJnEqbcH9JCk1bxK7iMyUIVxdKcHhEIpM/exec";
+<script>
+        // 【重要】請確認引號內為您真實的 Apps Script 網頁應用程式 URL
+        const GAS_WEB_APP_URL = "https://script.google.com/macros/s/您的GAS網址/exec";
 
         function openForm() {
             document.getElementById('page-poster').style.display = 'none';
@@ -268,9 +268,41 @@
             window.scrollTo(0, 0);
         }
 
-        // 送出表單邏輯
+        // -------------------------------------------------------------
+        // 🔥【新增】考場志願「每欄限選一個（自動互斥）」機制
+        // 當選取某間學校的「第一志願」時，其他學校若原本也是「第一志願」會自動取消點選
+        // -------------------------------------------------------------
+        document.querySelectorAll('input[name^="pref_"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const currentName = this.name;   // 當前點選的學校
+                const currentValue = this.value; // 當前點選的志願 (例: 第一志願)
+                
+                if (this.checked) {
+                    // 搜尋其他學校，如果選了相同的志願，自動幫他取消點選
+                    document.querySelectorAll('input[name^="pref_"]').forEach(otherRadio => {
+                        if (otherRadio.name !== currentName && otherRadio.value === currentValue) {
+                            otherRadio.checked = false;
+                        }
+                    });
+                }
+            });
+        });
+
+        // 表單送出檢查與處理
         document.getElementById('surveyForm').addEventListener('submit', function(e) {
             e.preventDefault();
+
+            // 🔍【新增】送出前的防呆檢查：確認三個志願是否有重複
+            const daoming = document.querySelector('input[name="pref_daoming"]:checked')?.value;
+            const kshs = document.querySelector('input[name="pref_kshs"]:checked')?.value;
+            const kghs = document.querySelector('input[name="pref_kghs"]:checked')?.value;
+
+            if (daoming && kshs && kghs) {
+                if (daoming === kshs || kshs === kghs || daoming === kghs) {
+                    alert('⚠️ 考場意願順序不可重複選擇！\n第一志願、第二志願與第三志願必須為不同考場，請重新調整。');
+                    return; // 阻擋送出
+                }
+            }
             
             const submitBtn = document.getElementById('submitBtn');
             submitBtn.disabled = true;
@@ -292,6 +324,6 @@
                 location.reload();
             });
         });
-    </script>
+    </script>   
 </body>
 </html>
